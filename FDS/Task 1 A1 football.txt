@@ -1,0 +1,41 @@
+Problem Statement----
+
+In second year computer engineering class, group A student’s play cricket, group B students
+play badminton and group C students play football.
+Write a Python program using functions to compute following: -
+a) List of students who play both cricket and badminton
+b) List of students who play either cricket or badminton but not both
+c) Number of students who play neither cricket nor badminton
+d) Number of students who play cricket and football but not badminton.
+(Note- While realizing the group, duplicate entries should be avoided, Do not use SET builtin functions)
+
+
+Solution ----
+
+# Function to remove duplicates from a list
+def remove_duplicates(lst):
+    unique_lst = []
+    for item in lst:
+        if item not in unique_lst:
+            unique_lst.append(item)
+    return unique_lst
+
+# Function to find intersection of two lists
+def intersection(lst1, lst2):
+    inter = []
+    for item in lst1:
+        if item in lst2 and item not in inter:
+            inter.append(item)
+    return inter
+
+# Function to find students who play both cricket and badminton
+def cricket_and_badminton(cricket, badminton):
+    return intersection(cricket, badminton)
+
+# Example data
+cricket = remove_duplicates(['Alice', 'Charlie', 'Eva', 'Grace', 'Bob'])
+badminton = remove_duplicates(['Bob', 'Charlie', 'David', 'Helen'])
+
+# a) List of students who play both cricket and badminton
+students_playing_both = cricket_and_badminton(cricket, badminton)
+print("Students who play both cricket and badminton:", students_playing_both)

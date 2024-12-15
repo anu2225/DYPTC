@@ -1,0 +1,32 @@
+Practical No. 2
+
+Problem Statement ---
+
+Write a Python programto store marks scored in subject “fundamental of Data structure” by
+N students in the class.
+Write functions to compute following:
+a) The average score of class
+
+
+Solution ---
+
+def get_marks():
+    marks = []
+    n = int(input("Enter the number of students: "))
+    for i in range(n):
+        mark = int(input(f"Enter the marks for student {i + 1}: "))
+        marks.append(mark)
+    return marks
+
+def average_score(marks):
+    if len(marks) == 0:
+        return 0
+    return sum(marks) / len(marks)
+
+def main():
+    marks = get_marks()
+    avg_score = average_score(marks)
+    print(f"\nAverage score of the class: {avg_score:.2f}")
+
+if __name__ == "__main__":
+    main()

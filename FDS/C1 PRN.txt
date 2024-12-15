@@ -1,0 +1,236 @@
+
+#include<iostream>
+using namespace std;
+
+class node
+{
+    private:
+        char name[10];
+        long prn;
+        node* next;
+    public:
+        node()
+        {
+            prn = 0;
+            next = NULL;
+        }
+        friend class list;
+};
+
+class list
+{
+   public:
+        node* president;
+        node* secretary;
+        node* current;
+        node* currentminus1;
+        int count;
+    public:
+        list()
+        {
+            president = NULL;
+            secretary = NULL;
+            current = NULL;
+            currentminus1 = NULL;
+            count = 0;
+        }
+
+        void gethead();
+        void gettail();
+        void addmember();
+        void displaylist();
+        void remove();
+        void display_count();
+        void disp_rev(node*);
+        friend void display_reverse(list*, node*);
+};
+
+
+void list::gethead()
+{
+    president = new node;
+    count++;
+    cout << "Enter Name of President:" << endl;
+    cin >> president->name;
+    cout << "Enter PRN of President:" << endl;
+    cin >> president->prn;
+    president->next = NULL;
+}
+
+
+void list::gettail()
+{
+    secretary = new node;
+    count++;
+    cout << "Enter the name of the Secretary:" << endl;
+    cin >> secretary->name;
+    cout << "Enter PRN of Secretary:" << endl;
+    cin >> secretary->prn;
+    secretary->next = NULL;
+
+    // Link President to Secretary if list has no members yet
+    if (president != NULL)
+    {
+        president->next = secretary;
+    }
+}
+
+// Function to add a member between President and Secretary
+void list::addmember()
+{
+    count++;
+    node* tmp = new node;
+    cout << "Enter Member name:\n";
+    cin >> tmp->name;
+    cout << "Enter PRN of Member:\n";
+    cin >> tmp->prn;
+    tmp->next = NULL;
+
+    // Insert before President
+    if (tmp->prn < president->prn)
+    {
+        tmp->next = president;
+        president = tmp;
+    }
+    // Insert after Secretary
+    else if (tmp->prn > secretary->prn)
+    {
+        secretary->next = tmp;
+        secretary = tmp;
+        secretary->next = NULL;
+    }
+    // Insert in middle
+    else
+    {
+        currentminus1 = president;
+        current = president->next;
+        while (current != secretary && current->prn < tmp->prn)
+        {
+            currentminus1 = current;
+            current = current->next;
+        }
+        currentminus1->next = tmp;
+        tmp->next = current;
+    }
+}
+
+// Function to display total member count
+void list::display_count()
+{
+    cout << "Member count: " << count << endl;
+}
+
+// Function to display list of members
+void list::displaylist()
+{
+    current = president;
+    while (current != NULL)
+    {
+        cout << "Name of the Member: " << current->name << endl;
+        cout << "PRN of the Member: " << current->prn << endl;
+        current = current->next;
+    }
+}
+
+// Function to remove a member by PRN
+void list::remove()
+{
+    long pno;
+    cout << "Enter the PRN of the member to be removed:" << endl;
+    cin >> pno;
+
+    if (pno == president->prn)
+    {
+        node* tmp = president;
+        president = president->next;
+        delete tmp;
+        count--;
+    }
+    else if (pno == secretary->prn)
+    {
+        current = president;
+        while (current->next != secretary)
+        {
+            current = current->next;
+        }
+        delete secretary;
+        secretary = current;
+        secretary->next = NULL;
+        count--;
+    }
+    else
+    {
+        currentminus1 = president;
+        current = president->next;
+        while (current != NULL && current->prn != pno)
+        {
+            currentminus1 = current;
+            current = current->next;
+        }
+        if (current != NULL)
+        {
+            currentminus1->next = current->next;
+            delete current;
+            count--;
+        }
+        else
+        {
+            cout << "Member not found!" << endl;
+        }
+    }
+}
+
+// Helper function to display list in reverse
+void list::disp_rev(node* head)
+{
+    if (head == NULL)
+        return;
+    disp_rev(head->next);
+    cout << "Name of the Member: " << head->name << endl;
+    cout << "PRN of the Member: " << head->prn << endl;
+}
+
+// Friend function to call the reverse display function
+void display_reverse(list* a, node* head)
+{
+    a->disp_rev(head);
+}
+
+int main()
+{
+    list a;
+    a.gethead();
+    a.gettail();
+    
+    int choice;
+    bool cont = true;
+
+    while (cont)
+    {
+        cout << "Enter Choice:\n1.Add Member\n2.Delete Member\n3.Display No of Members\n4.Display Members\n5.Display in Reverse\n6.Exit\n";
+        cin >> choice;
+        switch (choice)
+        {
+            case 1:
+                a.addmember();
+                break;
+            case 2:
+                a.remove();
+                break;
+            case 3:
+                a.display_count();
+                break;
+            case 4:
+                a.displaylist();
+                break;
+            case 5:
+                display_reverse(&a, a.president);
+                break;
+            case 6:
+                cont = false;
+                break;
+            default:
+                cout << "Wrong choice\n";
+        }
+    }
+return 0;}

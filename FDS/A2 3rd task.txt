@@ -1,0 +1,31 @@
+Practical No.2
+
+Task 3 - Write a Python programto store marks scored in subject “fundamental of Data structure” by 
+N students in the class.
+Write functions to compute following:
+
+Count of students who were absent for the test
+
+Solution --
+def count_absent_students(marks):
+    count = 0
+    for mark in marks:
+        if mark is None:
+            count += 1
+    return count
+
+# Input: Number of students
+N = int(input("Enter the number of students: "))
+
+# Input: Marks of each student (use 'None' for absent students)
+marks = []
+for i in range(N):
+    mark = input(f"Enter marks for student {i+1} (or 'A' if absent): ")
+    if mark.upper() == 'A':
+        marks.append(None)
+    else:
+        marks.append(int(mark))
+
+# Compute the count of absent students
+absent_count = count_absent_students(marks)
+print(f"Number of students who were absent for the test: {absent_count}")

@@ -1,0 +1,38 @@
+
+Task - 2  Highest score and lowest score of class 
+
+def get_marks():
+    marks = []
+    n = int(input("Enter the number of students: "))
+    for i in range(n):
+        mark = int(input(f"Enter the marks for student {i + 1}: "))
+        marks.append(mark)
+    return marks
+
+def average_score(marks):
+    if len(marks) == 0:
+        return 0
+    return sum(marks) / len(marks)
+
+def highest_score(marks):
+    if len(marks) == 0:
+        return None
+    return max(marks)
+
+def lowest_score(marks):
+    if len(marks) == 0:
+        return None
+    return min(marks)
+
+def main():
+    marks = get_marks()
+    avg_score = average_score(marks)
+    high_score = highest_score(marks)
+    low_score = lowest_score(marks)
+    
+    print(f"\nAverage score of the class: {avg_score:.2f}")
+    print(f"Highest score in the class: {high_score}")
+    print(f"Lowest score in the class: {low_score}")
+
+if __name__ == "__main__":
+    main()

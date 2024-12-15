@@ -1,0 +1,39 @@
+Task 4 --- 
+
+Write a Python programto store marks scored in subject “fundamental of Data structure” by 
+N students in the class.
+Write functions to compute following:
+
+Display mark with highest frequency
+
+Solution ----
+
+
+from collections import Counter
+
+def find_highest_frequency_mark(marks):
+    # Using Counter to count the frequency of each mark
+    frequency = Counter(marks)
+    
+    # Finding the mark with the highest frequency
+    max_frequency = max(frequency.values())
+    
+    # Extracting all marks that have the highest frequency
+    most_frequent_marks = [mark for mark, freq in frequency.items() if freq == max_frequency]
+    
+    # Return the marks with the highest frequency and the frequency
+    return most_frequent_marks, max_frequency
+
+# Input: Number of students
+N = int(input("Enter the number of students: "))
+
+# Input: Marks of each student
+marks = []
+for i in range(N):
+    mark = int(input(f"Enter marks for student {i+1}: "))
+    marks.append(mark)
+
+# Find and display the mark(s) with the highest frequency
+most_frequent_marks, max_frequency = find_highest_frequency_mark(marks)
+print(f"Mark(s) with the highest frequency: {most_frequent_marks}")
+print(f"Highest frequency: {max_frequency}")

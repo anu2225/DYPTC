@@ -1,0 +1,52 @@
+Problem Statement----
+
+In second year computer engineering class, group A student’s play cricket, group B students
+play badminton and group C students play football.
+Write a Python program using functions to compute following: -
+
+Task -4 Number of students who play cricket and football but not badminton.
+
+# Function to remove duplicates from a list
+def remove_duplicates(lst):
+    unique_list = []
+    for item in lst:
+        if item not in unique_list:
+            unique_list.append(item)
+    return unique_list
+
+# Function to find intersection of two lists
+def intersection(lst1, lst2):
+    intersected_list = []
+    for item in lst1:
+        if item in lst2:
+            intersected_list.append(item)
+    return intersected_list
+
+# Main function to solve the problem
+def cricket_and_football_not_badminton(group_a, group_b, group_c):
+    # Step 1: Remove duplicates
+    group_a = remove_duplicates(group_a)
+    group_b = remove_duplicates(group_b)
+    group_c = remove_duplicates(group_c)
+    
+    # Step 2: Find students who play both cricket and football
+    cricket_and_football = intersection(group_a, group_c)
+    
+    # Step 3: Filter out students who also play badminton
+    final_list = []
+    for student in cricket_and_football:
+        if student not in group_b:
+            final_list.append(student)
+    
+    # Step 4: Return the number of such students
+    return len(final_list), final_list
+
+# Example usage
+group_a = ["Alice", "Bob", "Charlie", "David", "Bob"]      # Cricket players
+group_b = ["Charlie", "Eve", "Frank"]                      # Badminton players
+group_c = ["Alice", "David", "George", "Charlie"]          # Football players
+
+count, students = cricket_and_football_not_badminton(group_a, group_b, group_c)
+
+print(f"Number of students who play cricket and football but not badminton: {count}")
+print("Students:", students)

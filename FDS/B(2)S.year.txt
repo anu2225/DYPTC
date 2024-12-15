@@ -1,0 +1,91 @@
+Practical No. B(2)
+
+Problem Statement --- 
+
+Write a Python program to store second year percentage of students in array. Write function 
+for sorting array of floating point numbers in ascending order using 
+a)	Insertion sort
+Code--
+
+def insertion_sort(arr):
+  
+    for i in range(1, len(arr)):
+        key = arr[i]  
+        j = i - 1
+
+       
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+
+
+def display_array(arr):
+    for i in arr:
+        print(f'{i:.2f}', end=' ')
+    print()
+
+
+if __name__ == "__main__":
+   
+    student_percentages = [78.5, 85.2, 67.4, 90.1, 72.9, 88.6]
+
+    print("Original array of student percentages:")
+    display_array(student_percentages)
+
+
+    insertion_sort(student_percentages)
+
+    print("\nSorted array of student percentages in ascending order:")
+    display_array(student_percentages)
+
+***********************Write down output of the above program**************************
+
+b)	Shell Sort and display top five scores
+Code ---
+
+def shell_sort(arr):
+    n = len(arr)
+    gap = n // 2  
+
+    
+    while gap > 0:
+        for i in range(gap, n):
+       
+            temp = arr[i]
+            j = i
+
+            
+            while j >= gap and arr[j - gap] < temp:
+                arr[j] = arr[j - gap]
+                j -= gap
+
+           
+            arr[j] = temp
+
+        gap //= 2  
+
+
+def display_array(arr):
+    for i in arr:
+        print(f'{i:.2f}', end=' ')
+    print()
+
+
+if __name__ == "__main__":
+    
+    student_percentages = [78.5, 85.2, 67.4, 90.1, 72.9, 88.6, 94.3, 81.5, 92.7, 69.4]
+
+    print("Original array of student percentages:")
+    display_array(student_percentages)
+
+    
+    shell_sort(student_percentages)
+
+    print("\nSorted array of student percentages in descending order (top to bottom):")
+    display_array(student_percentages)
+
+    
+    print("\nTop five student percentages:")
+    top_five_scores = student_percentages[:5]  
+    display_array(top_five_scores)
